@@ -1,0 +1,42 @@
+.Rdata
+.RData
+.DS_Store
+.Rhistory
+Rplots.pdf
+
+# Slurm job array stdout/stderr + experiment logs (recreated on every run).
+logs/
+*.out
+*.err
+*.log
+
+# Editor / IDE local state.
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local R session state
+.Rproj.user/
+
+# Don't track legacy pre-MechRt working tree if still present after the
+# showcase migration.
+/outputs/
+/Rt_scripts/
+/Scripts/
+/Lit Review/
+/Overleaf/
+# (was /Data/ — dropped because core.ignoreCase=true on macOS made it
+# accidentally swallow lowercase data/, the actual MechRt data dir.)
+/stan_files/
+/install_packages.R
+/.RData
+
+# Local-only directories — never commit these
+Parallel_Trends_Replication/
+misc/
+outputs/
+Overleaf/
+Rt_scripts/
+Rplots.pdf
+presentation_figs/

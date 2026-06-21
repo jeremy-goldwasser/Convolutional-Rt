@@ -1,0 +1,5 @@
+# generated example outputs
+examples/*.pdf
+examples/*.rds
+.DS_Store
+presentation_code/
