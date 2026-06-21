@@ -29,7 +29,7 @@ repo_root   <- .find_repo_root()
 data_dir    <- file.path(repo_root, "data")
 results_dir <- file.path(repo_root, "results")
 figures_dir <- file.path(repo_root, "figures")
-source(file.path(repo_root, "code", "girt.R"))
+suppressPackageStartupMessages(library(ConvRt))
 
 ce_data_dir <- file.path(data_dir, "real", "covidestim")
 ce_res_dir  <- file.path(results_dir, "real", "covidestim")

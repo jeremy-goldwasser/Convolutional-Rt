@@ -192,7 +192,7 @@ fit_flu_combo_girt <- function(hosps_all, week_end, beta, lik,
                     lam, dow, beta, lik, severity, knot_step, end_t, gamma_grid, n_fv)
     gamma_chosen <- gamma_info$best_gamma_min
     Ptaper <- gi_build_tapered_penalty(d_sc, pi_EH, quiet = TRUE)$P_taper
-    fit_final <- .gi_solve_taper(d_sc, lam, lam_taper = gamma_chosen, P_taper = Ptaper,
+    fit_final <- ConvRt:::.gi_solve_taper(d_sc, lam, lam_taper = gamma_chosen, P_taper = Ptaper,
                                  tail = "linear", theta_init = fit_main$theta)
     design_rt <- d_sc
   }
@@ -205,7 +205,7 @@ fit_flu_combo_girt <- function(hosps_all, week_end, beta, lik,
               dow_effects = dow, gamma_info = gamma_info)
   if (!is.null(lam_retro_1se) && use_taper)
     out$rt_at_lam_retro_1se <- rt_df_from(
-      .gi_solve_taper(design_rt, lam_retro_1se, lam_taper = gamma_chosen, P_taper = Ptaper,
+      ConvRt:::.gi_solve_taper(design_rt, lam_retro_1se, lam_taper = gamma_chosen, P_taper = Ptaper,
                       tail = "linear", theta_init = fit_main$theta),
       design_rt, lam_retro_1se, gamma_chosen, Ptaper)
   out

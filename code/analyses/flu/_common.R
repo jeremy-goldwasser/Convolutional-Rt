@@ -25,7 +25,7 @@ repo_root   <- .find_repo_root()
 data_dir    <- file.path(repo_root, "data")
 results_dir <- file.path(repo_root, "results")
 figures_dir <- file.path(repo_root, "figures")
-source(file.path(repo_root, "code", "girt.R"))
+suppressPackageStartupMessages(library(ConvRt))
 suppressPackageStartupMessages({ library(dplyr) })
 
 flu_data_dir    <- file.path(data_dir, "real", "flu")

@@ -44,7 +44,7 @@ cat(sprintf("[sim] daily lam_min=%.3e\n", lam_d))
 # --- WEEKLY girt (min + 1se) -------------------------------------------------
 cat("[sim] weekly fit ...\n")
 valid_dates <- dates[which(design_d$valid_mask)]
-w <- fit_girt_weekly_retrospective(
+w <- fit_convrt_weekly_retrospective(
   design_d, lam_grid = wk_sim$lam_grid, dates = dates,
   dates_valid = valid_dates, cv_select_rule = "min",
   error_measure = "deviance", nfold = 5L, level = wk_cfg$level)

@@ -47,7 +47,7 @@ gamma_grid <- fv$gamma_grid
 rrt <- retro_rt(season); rt_retro_at_cutoff <- rrt$Rt_mean[rrt$date == WEEK_END]
 theta_init <- fit_main$theta; rows <- list()
 for (gi in seq_along(gamma_grid)) {
-  fg <- tryCatch(.gi_solve_taper(d_sc, LAM_USED, lam_taper = gamma_grid[gi], P_taper = P_taper,
+  fg <- tryCatch(ConvRt:::.gi_solve_taper(d_sc, LAM_USED, lam_taper = gamma_grid[gi], P_taper = P_taper,
                                  tail = "linear", theta_init = theta_init), error = function(e) NULL)
   if (is.null(fg) || !all(is.finite(fg$theta))) next
   rt <- gi_extract_rt(fg, d_sc, lam = LAM_USED, lam_taper = gamma_grid[gi],

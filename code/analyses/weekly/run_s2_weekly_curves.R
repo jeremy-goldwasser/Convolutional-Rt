@@ -3,7 +3,7 @@
 # Real-time weekly-aggregated girt on US flu hosps, season 2.  At each cutoff:
 #   1. build the daily renewal design truncated through the cutoff (no DoW, LOG
 #      deconv, GI = discrete Gamma(3.2,1.6));
-#   2. fit_girt_weekly_realtime -> FV-tuned gamma;
+#   2. fit_convrt_weekly_realtime -> FV-tuned gamma;
 #   3. refit at EVERY gamma in gamma_grid, extracting the Rt curve at each.
 # Also a retrospective weekly fit over the full season for the overlay.
 #
@@ -33,7 +33,7 @@ cat("[s2] retro weekly fit (full season) ...\n")
 wr  <- win_for(cfg$eos)
 bdr <- wk_build_daily_design(wr$hosps_1d, wr$date, g, cfg$beta_date,
                              lik_date = cfg$beta_date, link = "log")
-retro <- fit_girt_weekly_retrospective(
+retro <- fit_convrt_weekly_retrospective(
   bdr$design, lam_grid = cfg$lam_grid, dates = wr$date,
   dates_valid = wr$date[which(bdr$design$valid_mask)],
   cv_select_rule = "1se", error_measure = "deviance",
@@ -52,7 +52,7 @@ build_one_cutoff <- function(week_end) {
   d_d <- bd$design
   valid_dates <- w$date[which(d_d$valid_mask)]
 
-  res <- fit_girt_weekly_realtime(
+  res <- fit_convrt_weekly_realtime(
     d_d, dates = w$date, lam_grid = cfg$lam_grid, use_taper = TRUE, pi_E = pi_EH,
     gamma = NULL, gamma_grid = cfg$gamma_grid, dates_valid = valid_dates,
     n_fv = cfg$n_fv, cv_select_rule = "1se", error_measure = "deviance",
@@ -67,7 +67,7 @@ build_one_cutoff <- function(week_end) {
   for (i in seq_along(cfg$gamma_grid)) {
     gm <- cfg$gamma_grid[i]
     fit_g <- tryCatch(
-      if (gm > 0) .gi_solve_taper(d_w, lam_chosen, lam_taper = gm, P_taper = P_taper,
+      if (gm > 0) ConvRt:::.gi_solve_taper(d_w, lam_chosen, lam_taper = gm, P_taper = P_taper,
                                   tail = "linear", theta_init = warm)
       else gi_solve(d_w, lam_chosen, tail = "linear", theta_init = warm),
       error = function(e) NULL)
